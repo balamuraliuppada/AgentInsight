@@ -53,3 +53,5 @@ npm run build
 Set `VITE_API_BASE_URL` and switch `VITE_USE_MOCK_API` to `false` after implementing the FastAPI contract. The current adapters suggest endpoints for list and write operations, authentication, search, investigation, entities, relationships, and timeline. Confirm pagination, resource schemas, validation, and error formats before connecting a live deployment.
 
 The backend must own authentication, permissions, tenant and case scoping, upload jobs, one-way audit storage, original evidence custody, indexing, and evidence-linked model output. Configure credentials, model keys, PostgreSQL, pgvector, and LangChain on the backend.
+
+The cases are set in Visakhapatnam, Hyderabad, Kolkata, Kochi, and Pune. Fixture locations use public landmarks. Phone identifiers use masked +91 numbers that stay consistent across call, message, and contact records. Original timestamps use IST (+05:30), and normalized timestamps use UTC.

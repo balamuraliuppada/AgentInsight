@@ -3,7 +3,7 @@ export function filterRecords(rows,filters={}){
  const {query='',mode='Keyword',type,application,participant,device,from,to}=filters;
  const terms=query.toLowerCase().trim().split(/\s+/).filter(Boolean);
  return rows.filter(row=>{
-  const haystack=[row.id,row.content,row.type,row.application,row.deviceId,...row.participants,...row.participantIds,...Object.values(row.metadata)].join(' ').toLowerCase();
+  const haystack=[row.id,row.content,row.type,row.application,row.deviceId,...row.participants,...row.participantIds,...Object.values(row.metadata).filter(value=>typeof value!=='object'),...(row.metadata.phoneEntries??[]).map(entry=>entry.number)].join(' ').toLowerCase();
   return (!type||row.type===type)&&(!application||row.application===application)&&(!participant||row.participants.includes(participant))&&(!device||row.deviceId===device)&&(!from||row.timestamp.slice(0,10)>=from)&&(!to||row.timestamp.slice(0,10)<=to)&&(!terms.length||(mode==='Exact'?haystack.includes(query.toLowerCase().trim()):mode==='Semantic'||mode==='Hybrid'?terms.some(term=>haystack.includes(term)):terms.every(term=>haystack.includes(term))));
  });
 }

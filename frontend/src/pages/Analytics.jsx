@@ -28,7 +28,7 @@ function EntityView(){
  {selected&&<Dialog title={selected.name} onClose={()=>setSelected(null)}><p>{selected.type} · {selected.records.length} referenced artefacts</p><p>Participants in supporting records</p><p className="muted">{[...new Set(selected.records.flatMap(r=>r.participants))].filter(n=>n!==selected.name).join(', ')||'None'}</p><div className="table-responsive" style={{maxHeight:'40vh'}}>{selected.records.map(r=><div className="entity-line" key={r.id}><EvidenceLink id={r.id}/><small>{r.type}</small></div>)}</div>{['Person','Phone number','Location','Device','Account','Organization'].includes(selected.type)&&<Link className="btn btn-outline-secondary mt-3" to={'/graph?node='+encodeURIComponent(selected.id)}>Open in relationship graph</Link>}</Dialog>}</>;
 }
 const nodeStyles={Person:['#659fff','ellipse'],'Phone number':['#f5b66d','round-rectangle'],Account:['#c19cff','diamond'],Device:['#3bddbc','round-rectangle'],Organization:['#fa8fa8','hexagon'],Location:['#70d1fb','triangle']};
-const edgeTypes=['Communication','Shared contact','Associated account','Device association','Recorded location association'];
+const edgeTypes=['Communication','Shared contact','Phone association','Associated account','Device association','Recorded location association'];
 export function Graph(){const {caseId}=useWorkspace();return <GraphView key={caseId}/>;}
 function GraphView(){
  const {caseId,theme}=useWorkspace(),{rows,error}=useCaseResult(getGraph,caseId),[params]=useSearchParams();

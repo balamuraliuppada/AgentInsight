@@ -18,8 +18,10 @@ export function graphElements(rows){
   if(['Chat Messages','Call Logs','SMS','Emails'].includes(row.type))edge(a,b,'Communication',row);
   if(row.type==='Contacts'){
    edge(a,b,'Shared contact',row);
-   const phone=row.content.match(/\+1 202 555 \d{4}/)?.[0];
-   if(phone)edge(b,node(phone,'Phone number',row),'Shared contact',row);
+  }
+  for(const {name,number} of row.metadata.phoneEntries??[]){
+   const person=name===row.participants[0]?a:b;
+   edge(person,node(number,'Phone number',row),'Phone association',row);
   }
   if(row.metadata.organization)edge(a,node(row.metadata.organization,'Organization',row),'Shared contact',row);
   if(row.type==='Device Information')edge(a,node(row.deviceId,'Device',row),'Device association',row);

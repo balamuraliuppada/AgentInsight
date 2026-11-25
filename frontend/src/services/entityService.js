@@ -16,7 +16,7 @@ export async function getEntities(caseId){
   if(row.type==='Browser History')add(row.content,'URL',row);
   if(row.metadata.sender)add(row.metadata.sender,'Email address',row);
   if(row.metadata.organization)add(row.metadata.organization,'Organization',row);
-  for(const phone of row.content.match(/\+1 202 555 \d{4}/g)??[])add(phone,'Phone number',row);
+  for(const {number} of row.metadata.phoneEntries??[])add(number,'Phone number',row);
   for(const account of row.content.match(/AC-\d+/g)??[])add(account,'Account',row);
  }
  return [...entities.values()];
